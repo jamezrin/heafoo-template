@@ -52,3 +52,14 @@ html, body {
 
     background-color: green;
 }
+
+@media screen and (max-width: 450px) {
+    #header {
+        height: 50px;
+        position: absolute;
+    }
+
+    #content {
+        margin-top: 50px;
+    }
+}
