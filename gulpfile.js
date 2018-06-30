@@ -11,18 +11,18 @@ var browserSync = require('browser-sync').create()
 gulp.task('sass', function () {
     return gulp.src('./app/sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(gulp.dest('./dist/css'))
+        .pipe(gulp.dest('./app/dist/css'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('browserify', function () {
-    return gulp.src('app/js/app.js')
+    return gulp.src('./app/js/app.js')
         .pipe(tap(function(file) {
             file.contents = browserify(file.path, {debug: true}).bundle()
         }))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest('./dist/js'))
+        .pipe(gulp.dest('./app/dist/js'))
         .pipe(browserSync.stream());
 })
 
