@@ -5,39 +5,47 @@ var sass = require('gulp-sass');
 var browserify = require('browserify');
 var buffer = require('gulp-buffer');
 var uglify = require('gulp-uglify');
+var htmlmin = require('gulp-minify');
 var tap = require('gulp-tap');
 var browserSync = require('browser-sync').create()
 
 gulp.task('sass', function () {
-    return gulp.src('./app/sass/**/*.scss')
+    return gulp.src('./src/sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(gulp.dest('./app/dist/css'))
+        .pipe(gulp.dest('./dist/css'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('browserify', function () {
-    return gulp.src('./app/js/app.js')
+    return gulp.src('./src/js/app.js')
         .pipe(tap(function(file) {
             file.contents = browserify(file.path, {debug: true}).bundle()
         }))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest('./app/dist/js'))
+        .pipe(gulp.dest('./dist/js'))
         .pipe(browserSync.stream());
 })
 
+gulp.task('minify', function () {
+    return gulp.src('./src/**/*.html')
+        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(gulp.dest('./dist'))
+        .pipe(browserSync.stream())
+})
+
 gulp.task('watch', function () {
-    gulp.watch('./app/sass/**/*.scss', ['sass']);
-    gulp.watch('./app/js/**/*.js', [`browserify`]);
-    gulp.watch('./app/**/*.html').on('change', browserSync.reload)
+    gulp.watch('./src/sass/**/*.scss', ['sass']);
+    gulp.watch('./src/js/**/*.js', [`browserify`]);
+    gulp.watch('./src/**/*.html', ['minify'])
 });
 
 gulp.task('browser-sync', function() {
     browserSync.init({
         server: {
-            baseDir: "./app"
+            baseDir: "./dist"
         }
     })
 });
 
-gulp.task('default', ['sass', 'browserify', 'watch', 'browser-sync'])
+gulp.task('default', ['sass', 'browserify', 'minify', 'watch', 'browser-sync'])
