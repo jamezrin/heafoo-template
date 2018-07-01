@@ -40,7 +40,7 @@ gulp.task('watch', function () {
     gulp.watch('./src/**/*.html', ['minify'])
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('sync', function() {
     browserSync.init({
         server: {
             baseDir: "./dist"
@@ -48,4 +48,5 @@ gulp.task('browser-sync', function() {
     })
 });
 
-gulp.task('default', ['sass', 'browserify', 'minify', 'watch', 'browser-sync'])
+gulp.task('build', ['sass', 'browserify', 'minify'])
+gulp.task('dev', ['build', 'watch', 'sync'])
