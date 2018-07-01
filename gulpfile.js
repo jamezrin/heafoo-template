@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var browserify = require('browserify');
-var buffer = require('gulp-buffer');
-var uglify = require('gulp-uglify');
-var htmlmin = require('gulp-minify');
-var tap = require('gulp-tap');
-var browserSync = require('browser-sync').create()
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const browserify = require('browserify');
+const buffer = require('gulp-buffer');
+const uglify = require('gulp-uglify');
+const htmlmin = require('gulp-minify');
+const tap = require('gulp-tap');
+const browserSync = require('browser-sync').create()
 
 gulp.task('sass', function () {
     return gulp.src('./src/sass/**/*.scss')
@@ -25,19 +25,19 @@ gulp.task('browserify', function () {
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'))
         .pipe(browserSync.stream());
-})
+});
 
 gulp.task('minify', function () {
     return gulp.src('./src/**/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('./dist'))
         .pipe(browserSync.stream())
-})
+});
 
 gulp.task('watch', function () {
     gulp.watch('./src/sass/**/*.scss', ['sass']);
-    gulp.watch('./src/js/**/*.js', [`browserify`]);
-    gulp.watch('./src/**/*.html', ['minify'])
+    gulp.watch('./src/js/**/*.js', ['browserify']);
+    gulp.watch('./src/**/*.html', ['minify']);
 });
 
 gulp.task('sync', function() {
@@ -48,5 +48,5 @@ gulp.task('sync', function() {
     })
 });
 
-gulp.task('build', ['sass', 'browserify', 'minify'])
-gulp.task('dev', ['build', 'watch', 'sync'])
+gulp.task('build', ['sass', 'browserify', 'minify']);
+gulp.task('dev', ['build', 'watch', 'sync']);
