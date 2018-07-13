@@ -28,17 +28,14 @@ html, body {
     top: 0;
     left: 0;
     right: 0;
-
     width: 100%;
-    height: 100px;
 
     background-color: orange;
 }
 
 #content {
-    margin-top: 100px; /* Stay outside of #header */
     margin-bottom: 100px; /* Stay outside of #footer */
-    padding: 5px 5px; /* Not really needed */
+    padding: 8px 8px; /* Not really needed */
 }
 
 #footer {
@@ -55,13 +52,22 @@ html, body {
     background-color: green;
 }
 
-@media screen and (max-width: 450px) {
+@mixin header-height($height) {
     #header {
-        height: 50px;
-        position: absolute;
+        height: $height;
     }
 
     #content {
-        margin-top: 50px;
+        margin-top: $height;
     }
+}
+
+@include header-height(100px);
+
+@media screen and (max-width: 450px) {
+    #header {
+        position: absolute;
+    }
+
+    @include header-height(50px);
 }
