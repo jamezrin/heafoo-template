@@ -4,17 +4,17 @@
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
-    "lorem-ipsum": "^1.0.5"
+    "lorem-ipsum": "^1.0.6"
   },
   "devDependencies": {
-    "browser-sync": "^2.24.5",
-    "browserify": "^16.2.2",
+    "browser-sync": "^2.26.0",
+    "browserify": "^16.2.3",
     "gulp": "^3.9.1",
     "gulp-buffer": "0.0.2",
     "gulp-minify": "^3.1.0",
     "gulp-sass": "^4.0.1",
     "gulp-tap": "^1.0.1",
-    "gulp-uglify": "^3.0.0"
+    "gulp-uglify": "^3.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
